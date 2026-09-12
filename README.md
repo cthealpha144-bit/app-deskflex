@@ -21,7 +21,7 @@ Requirements
 1. Download the latest installer from https://deskplay.cstuartday.workers.dev
 2. Run `DeskPlay-Setup-[Version Number].exe` and follow the on-screen setup prompts.
 
-## 🛠️ Built With
+## Built With
 
 - **Electron** – Framework
 - **Node.js** –  Process handling + IPC bridge
