@@ -1,0 +1,72 @@
+[
+  {
+    "id": "standard",
+    "name": "Standard (Default)",
+    "description": "Balanced brightness and contrast for general web browsing and daily desktop work.",
+    "icon": "desktop",
+    "settings": {
+      "brightness": 50,
+      "contrast": 50
+    }
+  },
+  {
+    "id": "fps_gaming",
+    "name": "Gaming",
+    "description": "High brightness and elevated contrast to enhance detail and visibility in dark corners during gameplay.",
+    "icon": "gamepad",
+    "settings": {
+      "brightness": 80,
+      "contrast": 70
+    }
+  },
+  {
+    "id": "cinema_movie",
+    "name": "Movie",
+    "description": "Lower brightness with rich contrast for comfortable video viewing in dimly lit rooms.",
+    "icon": "film",
+    "settings": {
+      "brightness": 35,
+      "contrast": 65
+    }
+  },
+  {
+    "id": "reading_mode",
+    "name": "Reading",
+    "description": "Ultra-low brightness and relaxed contrast to reduce eye strain when reading long articles or documents.",
+    "icon": "book",
+    "settings": {
+      "brightness": 20,
+      "contrast": 40
+    }
+  },
+  {
+    "id": "night_late_night",
+    "name": "Night",
+    "description": "Minimal brightness and lower contrast to prevent harsh glare during late-night desktop sessions.",
+    "icon": "moon",
+    "settings": {
+      "brightness": 10,
+      "contrast": 30
+    }
+  },
+  {
+    "id": "vivid_high_energy",
+    "name": "Vivid",
+    "description": "Maxed-out brightness and strong contrast to make photos, graphics, and colorful media pop.",
+    "icon": "sparkles",
+    "settings": {
+      "brightness": 90,
+      "contrast": 80
+    }
+  },
+  {
+    "id": "bright",
+    "name": "Bright",
+    "description": "Maximum brightness and contrast for the brightest possible display image.",
+    "icon": "sun",
+    "settings": {
+      "brightness": 100,
+      "contrast": 100
+    }
+  }
+]
