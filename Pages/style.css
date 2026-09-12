@@ -138,6 +138,11 @@ body::-webkit-scrollbar-thumb {
   border-color: #4f46e5;
 }
 
+.monitor-card.dragging {
+  opacity: 0.45;
+  cursor: grabbing;
+}
+
 .monitor-card.active {
   border-color: #4f46e5;
   box-shadow: 0 0 0 1px #4f46e5;
@@ -203,6 +208,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .preset-card {
+  position: relative;
   background: #1e1e24;
   border: 1px solid #2d2d35;
   border-radius: 12px;
@@ -218,6 +224,85 @@ body::-webkit-scrollbar-thumb {
 .preset-card:hover {
   transform: translateY(-2px);
   border-color: #4f46e5;
+}
+
+.preset-delete-button {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: #a0a0ab;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.preset-delete-button:hover {
+  color: #fff;
+}
+
+.preset-create-card {
+  border: 2px dashed rgba(255, 255, 255, 0.75);
+  align-items: center;
+  justify-content: center;
+  min-height: 190px;
+}
+
+.preset-create-card:hover {
+  border-color: #fff;
+}
+
+.preset-create-button {
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 200;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.preset-create-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-create-form input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #45475a;
+  border-radius: 6px;
+  background: #121218;
+  color: #fff;
+}
+
+.preset-form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.preset-form-actions .btn-apply,
+.preset-cancel-button {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+}
+
+.preset-cancel-button {
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
 }
 
 .preset-title {
