@@ -10,8 +10,60 @@
       <h2>Settings</h2>
     </main>
 
+    <main class="settings-container">
+      <section class="settings-section">
+        <div>
+          <h3>App Settings</h3>
+          <p>Manage DeskPlay data stored on this device.</p>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>Theme</strong>
+            <span>Choose how DeskPlay looks.</span>
+          </div>
+          <select class="settings-select" id="theme-select" aria-label="Theme">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="system">System</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>Custom presets</strong>
+            <span>Remove all presets you created.</span>
+          </div>
+          <button class="settings-action" id="reset-presets" type="button">
+            Reset
+          </button>
+        </div>
+        <div class="settings-row">
+          <div>
+            <strong>Display order</strong>
+            <span>Restore displays to their detected order.</span>
+          </div>
+          <button
+            class="settings-action"
+            id="reset-display-order"
+            type="button"
+          >
+            Reset
+          </button>
+        </div>
+        <p class="settings-status" id="settings-status" aria-live="polite"></p>
+      </section>
+
+      <section class="settings-section settings-about">
+        <div>
+          <h3>About DeskPlay</h3>
+          <p>Display controls and preset management for your monitors.</p>
+        </div>
+        <span id="app-version">Version unavailable</span>
+      </section>
+    </main>
+
     <!-- Inject the navbar -->
     <div id="navbar-container" data-active="settings"></div>
+    <script src="../../Pages/Settings Page/settings.js"></script>
     <script src="../../Pages/loadNavbar.js"></script>
 
     <span class="watermark">DeskPlay 2026</span>

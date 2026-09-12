@@ -5,6 +5,14 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
 body {
   min-height: 100vh;
   width: 100vw;
@@ -39,6 +47,14 @@ body::-webkit-scrollbar-thumb {
   padding: 40px;
   align-self: center;
   text-align: center;
+}
+
+.displays-page #displays-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
 }
 
 .dock-container {
@@ -115,8 +131,9 @@ body::-webkit-scrollbar-thumb {
 
 .monitor-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 300px));
   gap: 20px;
+  justify-content: center;
   width: min(100% - 48px, 960px);
   margin: 20px auto 24px;
 }
@@ -170,6 +187,85 @@ body::-webkit-scrollbar-thumb {
 
 .settings-panel.hidden {
   display: none;
+}
+
+.settings-container {
+  display: grid;
+  gap: 20px;
+  width: min(100% - 48px, 720px);
+  margin: 20px auto 24px;
+}
+
+.settings-section {
+  background: #1e1e24;
+  border: 1px solid #2d2d35;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.settings-section h3 {
+  margin-bottom: 6px;
+}
+
+.settings-section p,
+.settings-row span,
+.settings-about span {
+  color: #a0a0ab;
+  font-size: 0.85rem;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 18px;
+  margin-top: 18px;
+  border-top: 1px solid #2d2d35;
+}
+
+.settings-row div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settings-action {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.settings-action:hover {
+  border-color: #4f46e5;
+  background: rgba(79, 70, 229, 0.15);
+}
+
+.settings-select {
+  flex: 0 0 auto;
+  padding: 8px 32px 8px 10px;
+  border: 1px solid #45475a;
+  border-radius: 8px;
+  background: #121218;
+  color: #fff;
+  cursor: pointer;
+}
+
+.settings-status {
+  min-height: 18px;
+  margin-top: 16px;
+  color: #a0a0ab;
+}
+
+.settings-about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .control-group {
@@ -240,6 +336,21 @@ body::-webkit-scrollbar-thumb {
   line-height: 1;
 }
 
+.preset-edit-button {
+  position: absolute;
+  top: 8px;
+  right: 38px;
+  border: none;
+  background: transparent;
+  color: #a0a0ab;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+.preset-edit-button:hover {
+  color: #fff;
+}
+
 .preset-delete-button:hover {
   color: #fff;
 }
@@ -282,6 +393,18 @@ body::-webkit-scrollbar-thumb {
   border-radius: 6px;
   background: #121218;
   color: #fff;
+}
+
+.preset-name-edit {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 4px 6px;
+  border: 1px solid #45475a;
+  border-radius: 4px;
+  background: #121218;
+  color: #fff;
+  font: inherit;
+  font-weight: bold;
 }
 
 .preset-form-actions {
@@ -351,6 +474,76 @@ body::-webkit-scrollbar-thumb {
   opacity: 0.65;
 }
 
+:root[data-theme="light"] body {
+  background: radial-gradient(circle at top right, #140029 0%, #000000 100%);
+  color: #1c1e26;
+}
+
+:root[data-theme="light"] .dock {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: #d9dde5;
+}
+
+:root[data-theme="light"] .dock-btn {
+  color: #5f6470;
+}
+
+:root[data-theme="light"] .dock-btn:hover,
+:root[data-theme="light"] .dock-btn.active {
+  color: #1c1e26;
+}
+
+:root[data-theme="light"] .monitor-card,
+:root[data-theme="light"] .settings-panel,
+:root[data-theme="light"] .settings-section,
+:root[data-theme="light"] .preset-card {
+  background: #fff;
+  border-color: #d9dde5;
+}
+
+:root[data-theme="light"] .monitor-card p,
+:root[data-theme="light"] .settings-section p,
+:root[data-theme="light"] .settings-row span,
+:root[data-theme="light"] .settings-about span,
+:root[data-theme="light"] .preset-desc,
+:root[data-theme="light"] .preset-status {
+  color: #646b78;
+}
+
+:root[data-theme="light"] .preset-card {
+  color: #000;
+}
+
+:root[data-theme="light"] .preset-create-button {
+  color: #000;
+}
+
+:root[data-theme="light"] .settings-row {
+  border-color: #e2e5eb;
+}
+
+:root[data-theme="light"] .settings-select,
+:root[data-theme="light"] .preset-create-form input,
+:root[data-theme="light"] .preset-name-edit {
+  border-color: #c7ccd6;
+  background: #f7f8fb;
+  color: #1c1e26;
+}
+
+:root[data-theme="light"] .settings-action,
+:root[data-theme="light"] .preset-cancel-button {
+  border-color: #c7ccd6;
+  color: #1c1e26;
+}
+
+:root[data-theme="light"] .preset-delete-button {
+  color: #646b78;
+}
+
+:root[data-theme="light"] .preset-edit-button {
+  color: #646b78;
+}
+
 @media (max-width: 600px) {
   .page-title {
     padding: 28px 24px;
@@ -365,5 +558,14 @@ body::-webkit-scrollbar-thumb {
 
   .settings-panel {
     width: calc(100% - 32px);
+  }
+
+  .settings-container {
+    width: calc(100% - 32px);
+  }
+
+  .settings-about {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

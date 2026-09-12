@@ -31,9 +31,9 @@ function createPresetCard(preset, isCustom = false) {
   card.className = `preset-card${isCustom ? " custom-preset-card" : ""}`;
 
   card.innerHTML = `
-    ${isCustom ? '<button class="preset-delete-button" type="button" aria-label="Delete preset" title="Delete preset">x</button>' : ""}
+    ${isCustom ? '<button class="preset-edit-button" type="button" aria-label="Edit preset name" title="Edit preset name">Edit</button><button class="preset-delete-button" type="button" aria-label="Delete preset" title="Delete preset">x</button>' : ""}
     <div>
-      <div class="preset-title">${preset.name}</div>
+      <div class="preset-title" data-preset-name>${preset.name}</div>
       <div class="preset-values">
         Brightness: ${preset.settings.brightness}% | Contrast: ${preset.settings.contrast}%
       </div>
@@ -50,11 +50,74 @@ function createPresetCard(preset, isCustom = false) {
 
   if (isCustom) {
     card
+      .querySelector(".preset-edit-button")
+      .addEventListener("click", () => editCustomPresetName(preset, card));
+    card
       .querySelector(".preset-delete-button")
       .addEventListener("click", () => deleteCustomPreset(preset, card));
   }
 
   return card;
+}
+
+function editCustomPresetName(preset, card) {
+  const title = card.querySelector("[data-preset-name]");
+  const input = document.createElement("input");
+  input.className = "preset-name-edit";
+  input.type = "text";
+  input.value = preset.name;
+  input.maxLength = 40;
+  input.setAttribute("aria-label", "Preset name");
+  title.replaceWith(input);
+  input.focus();
+  input.select();
+
+  const finishEditing = (save) => {
+    if (!input.isConnected) {
+      return;
+    }
+
+    const newName = input.value.trim();
+    const titleElement = document.createElement("div");
+    titleElement.className = "preset-title";
+    titleElement.dataset.presetName = "";
+
+    if (save && newName) {
+      const customPresets = getCustomPresets();
+      const savedPreset = customPresets.find(
+        (item) =>
+          item.name === preset.name &&
+          item.settings.brightness === preset.settings.brightness &&
+          item.settings.contrast === preset.settings.contrast,
+      );
+      if (savedPreset) {
+        savedPreset.name = newName;
+        localStorage.setItem(
+          customPresetsStorageKey,
+          JSON.stringify(customPresets),
+        );
+      }
+      preset.name = newName;
+      titleElement.textContent = newName;
+    } else {
+      titleElement.textContent = preset.name;
+    }
+
+    input.replaceWith(titleElement);
+  };
+
+  input.addEventListener("blur", () => finishEditing(true), { once: true });
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      input.blur();
+    }
+    if (event.key === "Escape") {
+      event.preventDefault();
+      input.removeEventListener("blur", finishEditing);
+      finishEditing(false);
+    }
+  });
 }
 
 function createPresetButton() {

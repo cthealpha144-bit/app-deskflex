@@ -1,3 +1,41 @@
+const themeStorageKey = "deskplay-theme";
+
+function getStoredTheme() {
+  try {
+    return localStorage.getItem(themeStorageKey) || "dark";
+  } catch (error) {
+    console.warn("Unable to read saved theme:", error);
+    return "dark";
+  }
+}
+
+function applyTheme(theme = getStoredTheme()) {
+  const resolvedTheme =
+    theme === "system"
+      ? window.matchMedia?.("(prefers-color-scheme: light)")?.matches
+        ? "light"
+        : "dark"
+      : theme;
+
+  document.documentElement.dataset.theme = resolvedTheme;
+}
+
+function setTheme(theme) {
+  try {
+    localStorage.setItem(themeStorageKey, theme);
+  } catch (error) {
+    console.warn("Unable to save theme:", error);
+  }
+  applyTheme(theme);
+}
+
+window.setDeskplayTheme = setTheme;
+try {
+  applyTheme();
+} catch (error) {
+  console.warn("Unable to apply saved theme:", error);
+}
+
 // Script for loading the navbar into each page - injected into each HTML File.
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("navbar-container");
