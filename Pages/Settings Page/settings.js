@@ -22,8 +22,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-function resetCustomPresets() {
-  if (!confirm("Delete all custom presets?")) {
+async function resetCustomPresets() {
+  const confirmed = await window.confirmDeskplay("Delete all custom presets?", {
+    title: "Reset custom presets",
+    confirmLabel: "Reset",
+  });
+  if (!confirmed) {
     return;
   }
 
@@ -31,8 +35,12 @@ function resetCustomPresets() {
   showStatus("Custom presets reset.");
 }
 
-function resetDisplayOrder() {
-  if (!confirm("Restore the detected display order?")) {
+async function resetDisplayOrder() {
+  const confirmed = await window.confirmDeskplay(
+    "Restore the detected display order?",
+    { title: "Reset display order", confirmLabel: "Reset" },
+  );
+  if (!confirmed) {
     return;
   }
 

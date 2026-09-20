@@ -126,8 +126,12 @@ function saveCustomPreset(formData, card) {
     .addEventListener("click", () => openPresetForm(card));
 }
 
-function deleteCustomPreset(preset, card) {
-  if (!confirm(`Delete the preset "${preset.name}"?`)) {
+async function deleteCustomPreset(preset, card) {
+  const confirmed = await window.confirmDeskplay(
+    `Delete the preset "${preset.name}"?`,
+    { title: "Delete preset", confirmLabel: "Delete" },
+  );
+  if (!confirmed) {
     return;
   }
 
@@ -186,7 +190,13 @@ async function applyPreset(preset, card) {
     }
 
     await Promise.all(updates);
-    status.textContent = `Applied to ${monitors.length} display${monitors.length === 1 ? "" : "s"}.`;
+    const successMessage = `Applied to ${monitors.length} display${monitors.length === 1 ? "" : "s"}.`;
+    status.textContent = successMessage;
+    window.setTimeout(() => {
+      if (status.textContent === successMessage) {
+        status.textContent = "";
+      }
+    }, 4500);
   } catch (error) {
     console.error(`Failed to apply ${preset.name}:`, error);
     status.textContent = error.message || "Could not apply preset.";

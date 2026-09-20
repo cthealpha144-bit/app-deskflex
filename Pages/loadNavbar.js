@@ -36,10 +36,74 @@ try {
   console.warn("Unable to apply saved theme:", error);
 }
 
+function confirmDeskplay(
+  message,
+  { title = "Are you sure?", confirmLabel = "Confirm" } = {},
+) {
+  const modal = document.getElementById("deskplay-confirm-modal");
+  if (!modal) {
+    return Promise.resolve(false);
+  }
+
+  modal.querySelector(".confirm-modal-title").textContent = title;
+  modal.querySelector(".confirm-modal-message").textContent = message;
+  modal.querySelector(".confirm-modal-confirm").textContent = confirmLabel;
+  modal.hidden = false;
+
+  return new Promise((resolve) => {
+    const cancelButton = modal.querySelector(".confirm-modal-cancel");
+    const confirmButton = modal.querySelector(".confirm-modal-confirm");
+    const close = (confirmed) => {
+      modal.hidden = true;
+      modal.removeEventListener("click", handleBackdropClick);
+      document.removeEventListener("keydown", handleKeydown);
+      cancelButton.removeEventListener("click", cancel);
+      confirmButton.removeEventListener("click", confirm);
+      resolve(confirmed);
+    };
+    const cancel = () => close(false);
+    const confirm = () => close(true);
+    const handleBackdropClick = (event) => {
+      if (event.target === modal) {
+        cancel();
+      }
+    };
+    const handleKeydown = (event) => {
+      if (event.key === "Escape") {
+        cancel();
+      }
+    };
+
+    cancelButton.addEventListener("click", cancel);
+    confirmButton.addEventListener("click", confirm);
+    modal.addEventListener("click", handleBackdropClick);
+    document.addEventListener("keydown", handleKeydown);
+    confirmButton.focus();
+  });
+}
+
+window.confirmDeskplay = confirmDeskplay;
+
 // Script for loading the navbar into each page - injected into each HTML File.
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("navbar-container");
   if (!container) return;
+
+  document.body.insertAdjacentHTML(
+    "beforeend",
+    `
+      <div class="confirm-modal" id="deskplay-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title" hidden>
+        <div class="confirm-modal-content">
+          <h2 class="confirm-modal-title" id="confirm-modal-title"></h2>
+          <p class="confirm-modal-message"></p>
+          <div class="confirm-modal-actions">
+            <button class="confirm-modal-cancel" type="button">Cancel</button>
+            <button class="confirm-modal-confirm" type="button"></button>
+          </div>
+        </div>
+      </div>
+    `,
+  );
 
   const activePage = container.getAttribute("data-active");
 
