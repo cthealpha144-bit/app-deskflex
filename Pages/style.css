@@ -7,6 +7,7 @@
 
 :root {
   color-scheme: dark;
+  scrollbar-gutter: stable;
 }
 
 :root[data-theme="light"] {
@@ -15,14 +16,14 @@
 
 body {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   background: radial-gradient(circle at top right, #140029 0%, #000000 100%);
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   position: relative;
   padding-bottom: 96px;
   scrollbar-color: #45475a transparent;
@@ -477,6 +478,10 @@ body::-webkit-scrollbar-thumb {
 :root[data-theme="light"] body {
   background: radial-gradient(circle at top right, #140029 0%, #000000 100%);
   color: #1c1e26;
+}
+
+:root[data-theme="light"] .page-title {
+  color: #ffffff;
 }
 
 :root[data-theme="light"] .dock {
