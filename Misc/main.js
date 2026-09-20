@@ -9,6 +9,9 @@ const exePath = app.isPackaged
 
 let mainWindow;
 
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = false;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 900,
@@ -28,6 +31,10 @@ function createWindow() {
 }
 
 ipcMain.handle("get-app-version", () => app.getVersion());
+
+ipcMain.handle("download-update", async () => {
+  await autoUpdater.downloadUpdate();
+});
 
 ipcMain.handle("get-displays", () => {
   return new Promise((resolve, reject) => {
@@ -71,11 +78,19 @@ ipcMain.handle("set-display", (event, { index, code, value, type = "DDC" }) => {
 app.whenReady().then(() => {
   createWindow();
 
-  autoUpdater.checkForUpdatesAndNotify();
+  if (app.isPackaged) {
+    autoUpdater.checkForUpdates();
+  }
 });
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
+});
+
+autoUpdater.on("update-available", (info) => {
+  mainWindow?.webContents.send("update-available", {
+    version: info.version,
+  });
 });
 
 autoUpdater.on("update-downloaded", () => {

@@ -1,6 +1,6 @@
 {
   "name": "deskplay-app",
-  "version": "8.5.0",
+  "version": "9.0.1",
   "main": "Misc/main.js",
   "author": "cstuartday@gmail.com",
   "description": "DeskPlay desktop application",
@@ -16,6 +16,19 @@
       "target": [
         "nsis"
       ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DeskPlay",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "artifactName": "DeskPlay-Setup-${version}.${ext}",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true
     },
     "extraResources": [
       {

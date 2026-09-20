@@ -84,6 +84,51 @@ function confirmDeskplay(
 
 window.confirmDeskplay = confirmDeskplay;
 
+function setupUpdatePrompt() {
+  if (!window.deskplayAPI?.onUpdateAvailable) {
+    return;
+  }
+
+  window.deskplayAPI.onUpdateAvailable(({ version }) => {
+    const modal = document.getElementById("deskplay-update-modal");
+    const message = modal.querySelector(".update-modal-message");
+    const laterButton = modal.querySelector(".update-modal-later");
+    const updateButton = modal.querySelector(".update-modal-update");
+
+    message.textContent = `DeskPlay ${version} is available. Update now or wait until the next time you open the app?`;
+    laterButton.disabled = false;
+    updateButton.disabled = false;
+    updateButton.textContent = "Update now";
+    modal.hidden = false;
+
+    const close = () => {
+      modal.hidden = true;
+      laterButton.removeEventListener("click", close);
+      updateButton.removeEventListener("click", update);
+    };
+    const update = async () => {
+      laterButton.disabled = true;
+      updateButton.disabled = true;
+      updateButton.textContent = "Downloading...";
+      try {
+        await window.deskplayAPI.downloadUpdate();
+      } catch (error) {
+        console.error("Failed to download update:", error);
+        message.textContent =
+          "The update could not be downloaded. Try again next time.";
+        updateButton.removeEventListener("click", update);
+        updateButton.textContent = "Close";
+        updateButton.disabled = false;
+        updateButton.addEventListener("click", close, { once: true });
+      }
+    };
+
+    laterButton.addEventListener("click", close);
+    updateButton.addEventListener("click", update);
+    updateButton.focus();
+  });
+}
+
 // Script for loading the navbar into each page - injected into each HTML File.
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("navbar-container");
@@ -102,8 +147,20 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       </div>
+      <div class="confirm-modal" id="deskplay-update-modal" role="dialog" aria-modal="true" aria-labelledby="update-modal-title" hidden>
+        <div class="confirm-modal-content">
+          <h2 class="confirm-modal-title" id="update-modal-title">Update available</h2>
+          <p class="update-modal-message"></p>
+          <div class="confirm-modal-actions">
+            <button class="confirm-modal-cancel update-modal-later" type="button">Later</button>
+            <button class="confirm-modal-confirm update-modal-update" type="button">Update now</button>
+          </div>
+        </div>
+      </div>
     `,
   );
+
+  setupUpdatePrompt();
 
   const activePage = container.getAttribute("data-active");
 
