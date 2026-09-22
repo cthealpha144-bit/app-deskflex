@@ -1,16 +1,16 @@
 {
-  "name": "deskplay-app",
-  "version": "9.0.1",
+  "name": "Deskflex-app",
+  "version": "9.0.2",
   "main": "Misc/main.js",
   "author": "cstuartday@gmail.com",
-  "description": "DeskPlay desktop application",
+  "description": "Deskflex desktop application",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder"
   },
   "build": {
-    "appId": "com.deskplay.app",
-    "productName": "DeskPlay",
+    "appId": "com.deskflex.app",
+    "productName": "Deskflex",
     "win": {
       "icon": "build/icon.ico",
       "target": [
@@ -23,10 +23,10 @@
       "perMachine": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "DeskPlay",
+      "shortcutName": "Deskflex",
       "installerIcon": "build/icon.ico",
       "uninstallerIcon": "build/icon.ico",
-      "artifactName": "DeskPlay-Setup-${version}.${ext}",
+      "artifactName": "Deskflex-Setup-${version}.${ext}",
       "deleteAppDataOnUninstall": false,
       "runAfterFinish": true
     },
@@ -40,7 +40,7 @@
       {
         "provider": "github",
         "owner": "cthealpha144-bit",
-        "repo": "app-deskplay"
+        "repo": "app-deskflex"
       }
     ]
   },
