@@ -1,6 +1,6 @@
-# DeskPlay
+# Deskflex
 
-DeskPlay is a lightweight, open-source Windows desktop application built with Electron that allows you to control your monitors' hardware settings directly from your desktop.
+Deskflex is a lightweight, open-source Windows desktop application built with Electron that allows you to control your monitors' hardware settings directly from your desktop.
 
 
 ## Features
@@ -18,8 +18,8 @@ Requirements
 - Monitors with **DDC/CI** enabled in their physical OSD menu options
 
 ### Installation
-1. Download the latest installer from https://deskplay.cstuartday.workers.dev
-2. Run `DeskPlay-Setup-[Version Number].exe` and follow the on-screen setup prompts.
+1. Download the latest installer from https://Deskflex.cstuartday.workers.dev
+2. Run `Deskflex-Setup-[Version Number].exe` and follow the on-screen setup prompts.
 
 ## Built With
 
